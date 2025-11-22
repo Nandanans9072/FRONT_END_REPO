@@ -11,14 +11,14 @@ const EmployeeLeave = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    // Fetch leave requests for employee from backend API
-    const fetchLeaves = async () => {
+  const fetchLeaves = async () => {
       setLoading(true);
       try {
-        const response = await axios.get(`http://localhost:3000/leave/status/${id}`);
-        setLeaves(response.data);
+        const response = await axios.get(`http://localhost:3000/employee/leave_report/${id}`);
+        setLeaves(response.data.Status ? response.data.Result : []);
       } catch (error) {
         console.error("Error fetching leaves:", error);
+        setLeaves([]);
       }
       setLoading(false);
     };
@@ -38,6 +38,25 @@ const EmployeeLeave = () => {
       day: "numeric",
     });
   };
+  
+const handleDelete = async (leaveId) => {
+  if (!window.confirm("Are you sure you want to delete this leave request?")) return;
+  try {
+    await axios.delete(`http://localhost:3000/employee/delete_leave/${leaveId}`);
+    setLeaves(leaves.filter(l => l.leave_id !== leaveId)); // Update UI instantly
+    alert("Leave request deleted.");
+    window.location.reload();
+  } catch (err) {
+    alert("Failed to delete leave!");
+    console.error(err);
+  }
+};
+
+const handleEdit = (leave) => {
+  // navigate to the edit leave page and pass leave data
+  navigate(`/employee_detail/${id}/editleave/${leave.leave_id}`, { state: { leave } });
+};
+
 
   const calculateDays = (from, to) => {
     const start = new Date(from);
@@ -215,20 +234,27 @@ const EmployeeLeave = () => {
                         {leave.status}
                       </span>
                     </td>
-                    <td>
-                      <div className="action-buttons">
-                        {/* Implement these actions as needed */}
-                        <button className="btn-view" title="View Details">
-                          👁️
-                        </button>
-                        <button className="btn-edit" title="Edit Leave">
-                          ✏️
-                        </button>
-                        <button className="btn-delete" title="Delete Leave">
-                          🗑️
-                        </button>
-                      </div>
-                    </td>
+                      <td>
+                        <div className="action-buttons">
+                          {/* Only allow edit and delete for pending leaves */}
+                          {leave.status?.toLowerCase() === "pending" && (
+                            <>
+                              <button
+                                className="btn-edit"
+                                title="Edit Leave"
+                                onClick={() => handleEdit(leave)}
+                              >
+                                ✏️
+                              </button>
+                              <button
+                                className="btn-delete"
+                                title="Delete Leave"
+                                onClick={() => handleDelete(leave.id)}
+                              >🗑️</button>
+                            </>
+                          )}
+                        </div>
+                      </td>
                   </tr>
                 ))
               )}

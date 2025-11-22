@@ -150,6 +150,67 @@
   border: 3px solid var(--primary-color);
 }
 
+.notification-popup {
+  position: fixed;
+  top: 70px;
+  right: 35px;
+  z-index: 9999;
+  background: #fff;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  border-radius: 8px;
+  width: 320px;
+  padding: 18px 20px 12px 18px;
+  color: #233055;
+  font-family: "Poppins", Arial, sans-serif;
+  animation: fadeIn 0.3s;
+}
+.notification-popup strong {
+  color: #004aad;
+}
+.notification-popup ul {
+  margin: 12px 0 12px 2px;
+  padding: 0 0 0 12px;
+  font-size: 15px;
+  list-style: disc inside;
+}
+.notification-popup .notif-close-btn {
+  display: block;
+  margin-left: auto;
+  background: #e1e7f4;
+  color: #004aad;
+  border: none;
+  border-radius: 5px;
+  padding: 6px 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+@keyframes fadeIn {
+  from { opacity: 0; top: 30px;}
+  to { opacity: 1; top: 70px;}
+}
+
+.notification-btn {
+  position: relative;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+.notification-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: #ff3b3b;
+  color: #fff;
+  font-size: 12px;
+  min-width: 19px;
+  padding: 3px 5.5px;
+  border-radius: 12px;
+  font-weight: bold;
+  z-index: 2;
+}
+
+
 .profile-avatar {
   width: 50px;
   height: 50px;

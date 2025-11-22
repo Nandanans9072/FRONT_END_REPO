@@ -93,12 +93,60 @@
   color: #374151;
   padding: 8px 12px;
   border-radius: 50%;
+  position: relative;
   transition: 0.2s ease;
+  margin-right: 8px;
 }
 
-.btn-notification:hover {
-  background: rgba(0,0,0,0.1);
+/* Notification badge */
+.notification-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: #ff3b3b;
+  color: #fff;
+  font-size: 12px;
+  min-width: 19px;
+  padding: 3px 6px;
+  border-radius: 12px;
+  font-weight: 700;
+  z-index: 2;
 }
+
+.notification-popup {
+  position: absolute;
+  top: 48px;
+  right: 0;
+  z-index: 9999;
+  background: #fff;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+  border-radius: 8px;
+  width: 300px;
+  padding: 16px 18px 11px 15px;
+  font-family: inherit;
+  color: #234;
+  animation: fadeIn 0.2s;
+}
+.notification-popup strong { color: #004aad; }
+.notification-popup ul {
+  margin: 9px 0 10px 0;
+  padding-left: 17px;
+  font-size: 15px;
+  list-style: disc inside;
+}
+.notif-close-btn {
+  display: block;
+  margin-left: auto;
+  background: #e1e7f4;
+  color: #004aad;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 12px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 7px;
+}
+
 
 .btn-logout {
   background: linear-gradient(45deg, #ff4d4d, #e63e3e);
